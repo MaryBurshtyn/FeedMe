@@ -6,7 +6,7 @@
 Developers use SRS to carry out tasks according to requirements. Managers use it to monitor progress of the project and to allocate tasks.
 Customers should approve this document for futher check of fulfillment of the requirements.
 ### 1.2 Scope
-  Developing application is named as FeedMe. It provides an opportunity to feed pet throught the Internet using mobile phone (Android).
+  Developing application is named as **FeedMe.** It provides an opportunity to feed pet throught the Internet using mobile phone (Android).
   This application is designed for real device which based at your home and connected to the Internet. 
 
 
@@ -20,17 +20,32 @@ Customers should approve this document for futher check of fulfillment of the re
   - The device represents a board with Internet access and connected feeding mechanism.
    ![system](system.png)
    Diagram of the system.
-### 2.2 User Characteristics 
-#### 2.2.1 Target Audience
+### 2.2 User Interfaces  
+#### Log in or sign up screen.
+![logIn](startScreen.png)
+#### Screen of the first enterance.
+![setUp](firstSetUp.png)
+#### Feeding screen.
+![main](mainScreen.png)
+#### Screen that shows menu bar.
+![menuBar](menuBar.png)
+#### Settings screen.
+![settings](settings.png)
+#### History screen.
+![history](history.png)
+#### Analysis screen.
+![analysis](analysis.png)
+### 2.3 User Characteristics 
+#### 2.3.1 Target Audience
 People who bought device and want to have an opportunity to feed their pet being away from home. Mostly they are pet owners.
-#### 2.2.2 Required Experience
+#### 2.3.2 Required Experience
 To use **FeedMe** application users should have some base experience in using Android smartphone like connecting phone to the Internet, 
 downloading application from Play Market.
-### 2.3 Assumptions and Dependencies
+### 2.4 Assumptions and Dependencies
 - Application can't feed pet without phone connected to the Internet.
 - Application can look through the history of feeding, spent food, changings of pet weight.
 - Application can't feed pet without device connected to the Internet, but there is auto mode to feed pet automatically. 
 - Application can't feed pet without working MQTT-broker.
-## 2 System Requirements
+## 3 System Requirements
 
      
