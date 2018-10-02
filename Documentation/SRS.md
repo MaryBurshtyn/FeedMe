@@ -104,3 +104,17 @@ This section describes analysis screen functions.
 |Show food statistics|The application should allow the user to see statistics of spent food. It is provided by  "Food" button.|
 |Show money statistics|The application should allow the user to see statistics of spent money. It is provided by  "Money" button.|
 ### 3.2. Non-Functional Requierements
+#### 3.2.1. Software Quality Attributes
+##### 3.2.1.1 Usability
+- Main function of application is feeding that's why button "Feed" will be contrast and will be differ from other elements.
+- Using principle "Form follows function": icons of elements will be dictated by their function.
+- All functional elements of the user interface will have names describing the action that the element does.
+- Principle of least effort: to feed pet user should do only 3 steps: 
+  - 1 Open application
+  - 2 Choose portion
+  - 3 Push "feed" button
+- The application will support portrait orientation only.
+##### 3.2.1.2 Security
+#### 3.2.2. External Interfaces
+#### 3.2.3. Constraints
+
