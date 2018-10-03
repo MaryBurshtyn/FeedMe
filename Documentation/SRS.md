@@ -1,7 +1,7 @@
 # Software Requirements Specification
 ---
 ## Glossary
-In this subsection described special terms used in SRS document.
+In this section is described special terms used in SRS document.
 - *MQTT protocol* is a simplified network protocol running over TCP/IP. Used to exchange messages on a publisher-subscriber basis.
 - *MQTT-broker* is a server which is using MQTT protocol to message exchanging between two machines. For example between sensor and computer. 
 - *Device* represents a board with Internet access, connected feeding mechanism and other sensors. *Device* is provided by customer.
@@ -13,9 +13,13 @@ In this subsection described special terms used in SRS document.
 Developers use SRS to carry out tasks according to requirements. Managers use it to monitor progress of the project and to allocate tasks.
 Customers should approve this document for futher check of fulfillment of the requirements.
 ### 1.2 Scope
-  Developing application is named as **FeedMe.** It provides an opportunity to feed pet throught the Internet using mobile phone (Android).
-  This application is designed for real device which based at your home and connected to the Internet. 
+  Developing application is named as **FeedMe.** It provides an ability to feed pet throught the Internet using mobile phone (Android).
+  This application is designed for real device which based at user's home and connected to the Internet. 
 ### 1.3 Business Requirements
+#### 1.3.1 Initial Data
+Nowadays Internet of Things is becoming more and more popular. People want to have an ability to control some their devices when they are away from home. Pet's owners often face with problem when they have no opportunity to feed their pet. Different circumstance can be reason of this problem. 
+#### 1.3.2 Business opportunities
+This application allows people 
 ### 1.4 Analogues
 Main functional possibilities depends on used device. Different devices has different set of sensors. This is the main difference between applications designed for specific device. Analogues: 
 - [PetTec](https://play.google.com/store/apps/details?id=cn.xlink.pettec)
@@ -28,8 +32,8 @@ Main functional possibilities depends on used device. Different devices has diff
   
 ## 2 User Requirements
 ### 2.1 Software Interfaces
-  **FeedMe** is dependent component of the system. The application should be able to manage device which is based at user's home. 
-  Management should be carried out through the MQTT-broker. 
+  **FeedMe** is dependent component of the system. The application should be able to control device which is based at user's home. 
+  Control should be carried out through the MQTT-broker. 
   - In this application MQTT-broker is a [Cloud MQTT](https://www.cloudmqtt.com/) - hosted message broker for the Internet of Things.
   MQTT-brokers is provided by a customer.
   - **FeedMe** is an application installed on user's phone that provides control. Application will send requests to the MQTT-broker. Broker will send this request to the device and device will execute request.
@@ -47,7 +51,7 @@ Main functional possibilities depends on used device. Different devices has diff
 
 ### 2.3 User Characteristics 
 #### 2.3.1 Target Audience
-People who bought device and want to have an opportunity to feed their pet being away from home. Mostly they are pet owners.
+People who bought device and want to have an ability to feed their pet being away from home. Mostly they are pet owners.
 #### 2.3.2 Required Experience
 To use **FeedMe** application users should have some base experience in using Android smartphone like connecting phone to the Internet, 
 downloading application from Play Market.
@@ -115,6 +119,7 @@ This section describes analysis screen functions.
   - 3 Push "feed" button
 - The application will support portrait orientation only.
 ##### 3.2.1.2 Security
+Unique username and password will be written on the case of device.
 #### 3.2.2. External Interfaces
 #### 3.2.3. Constraints
 
