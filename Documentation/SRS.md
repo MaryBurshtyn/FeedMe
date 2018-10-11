@@ -17,9 +17,10 @@ Customers should approve this document for futher check of fulfillment of the re
   This application is designed for real device which based at user's home and connected to the Internet. 
 ### 1.3 Business Requirements
 #### 1.3.1 Initial Data
-Nowadays Internet of Things is becoming more and more popular. People want to have an ability to control some their devices when they are away from home. Pet's owners often face with problem when they have no opportunity to feed their pet. Different circumstance can be reason of this problem. 
+Nowadays people want to have an ability to control some their devices when they are away from home. Pet's owners often face with problem when they have no opportunity to feed their pet. Different circumstance can be reason of this problem. 
 #### 1.3.2 Business opportunities
-This application allows people 
+- 1 This application allows people to feed their pet using mobile phone connected to the Internet and device for feeding. 
+- 2 Look through the history of feeding and money spent on food. 
 ### 1.4 Analogues
 Main functional possibilities depends on used device. Different devices has different set of sensors. This is the main difference between applications designed for specific device. Analogues: 
 - [PetTec](https://play.google.com/store/apps/details?id=cn.xlink.pettec)
@@ -41,7 +42,7 @@ Main functional possibilities depends on used device. Different devices has diff
    ![system](system.png)
    Diagram of the system.
 ### 2.2 User Interfaces  
-|Log in/sign up screen|Screen of the first enterance|Feeding screen|Screen that shows menu bar|
+|Sign-up screen|Screen of the first enterance|Feeding screen|Screen that shows menu bar|
 |:---|:---|:---|:---|
 |![logIn](startScreen.png)|![setUp](firstSetUp.png)|![main](mainScreen.png)|![menuBar](menuBar.png)|
 
@@ -63,11 +64,10 @@ downloading application from Play Market.
 ## 3 System Requirements
 ### 3.1 Functional Requrements
 #### 3.1.1 Sign-up
-This section describes user sign-up to the application. User should be able to log in to the application if he/she is already a registered user. User should be able to register if he/she is new to the application. Login screen is the first screens displayed after the application is launched. Once login is a success, the system should keep the user logged in.
+This section describes user sign-up to the application. User should be able to register if he/she is new to the application. Sign-up screen is the first screens displayed after the application is launched. Once login is a success, the system should keep the user logged in.
 
 |Function|Requirement|
 |:---|:---|
-|Log in|The application should allow the user to log in by receiving Username and password.|
 |Sign up|The application should allow the user to sign up by receiving Username and password.|
 #### 3.1.2 Settings 
 This section describes set of settings that is provided by application.
