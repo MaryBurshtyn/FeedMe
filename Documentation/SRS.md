@@ -127,8 +127,10 @@ This section describes history screen functions.
 |Function|Requirement|
 |:---|:---|
 |Choose time interval|The application should allow the user to choose time interval to display history of specific period of time. It is provided by "Day", "Week", "Month" buttons.|
-|Show history|The application should allow the user to see data, time and portion of feeding.|
-
+|Show history| The application should allow the user to see time and portion of feeding of current day.|
+|| The application should allow the user to see day of the week and portion of feeding of current week.|
+|| The application should allow the user to see week of the month and portion of feeding of current month.|
+||The application should allow the user to see previous time of feeding by displaying at the screen.|
 #### 3.1.5 Analysis<a name = "3.1.5"></a>
 This section describes analysis screen functions.
 
