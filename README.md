@@ -9,3 +9,7 @@ Have you ever heard the following statements, requests?
 
 **FeedMe** application is the easiest way to ask this questions. Using this app you can feed your pet from every spot on the globe. 
 Also you can look through history of feeding or quantity of the spent forage.
+
+### Documentation:
+1. [SRS](Documentation/SRS.md)
+2. [SDS](Documentation/SDS.md)
