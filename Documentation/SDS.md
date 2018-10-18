@@ -65,3 +65,4 @@ spent money for chose time interval.<br>
 for time interval chose in Use Case "Choose history time interval" . 
 2. End.
 #### 1.2.8 Change settings
+
