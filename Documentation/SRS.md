@@ -67,10 +67,11 @@ Main functional possibilities depends on used device. Different devices has diff
   - In this application MQTT-broker is a [Cloud MQTT](https://www.cloudmqtt.com/) - hosted message broker for the Internet of Things.
   MQTT-brokers is provided by a customer.
   - **FeedMe** is an application installed on user's phone that provides control. Application will send requests to the MQTT-broker. Broker will send this request to the device and device will execute request.
-  - The device represents a board with Internet access and connected feeding mechanism. Device is provided by a customer.
+  - The device represents a board with Internet access and connected feeding mechanism. Device is provided by a customer.<br>
+  Diagram of the system.<br>
    ![system](system.png)
-   Diagram of the system.<br>
-For more information click [here](https://github.com/MaryBurshtyn/FeedMe/master/Documentation/diagram.png)
+More detailed context diagram.
+![diagram](diagram.png)
 ### 2.2 User Interfaces<a name = "2.2"></a>
 |Sign-up screen|Screen of the first enterance|Feeding screen|Screen that shows menu bar|
 |:---|:---|:---|:---|
