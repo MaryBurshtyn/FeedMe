@@ -5,8 +5,9 @@
 pet and see general information about feeding and pet.
 - *History screen*<a name = "hs"></a> is the screen which shows information about feeding like time, data and portion of food.
 - *Analysis screen*<a name = "as"></a> is the screen which shows statistics of spent money or food for chose period of time.
+- *Settings screen*<a name = "ss"></a> is the screen which shows main settings which user can change.
 ## 1. Use Case Diagram
-![UseCaseDiagram](usecase.png)
+![UseCaseDiagram](usecases.png)
 ### 1.1. Actors
 |Actor|Description|
 |:---|:---|
@@ -65,4 +66,22 @@ spent money for chose time interval.<br>
 for time interval chose in Use Case "Choose history time interval" . 
 2. End.
 #### 1.2.8 Change settings
-
+**Description:** Use Case "Change settings" allows a user to change main settings like turn on/off notifications, sound, auto mode 
+and change kind of animal and pet's name.<br>
+**Flow of events:** 
+1. A user should open [Settings screen](#ss). 
+2. User should choose parameter which she/he want to change.
+3. If user choose parameter "Sound"("Notification","Auto mode") then step 4, if "Pet's name" parameter
+then alternative flow A1, if "Pet" parameter then alternative flow A2. 
+4. To change parameter user should push on button near "Sound" ("Notification","Auto mode") parameter.
+5. End.<br>
+**Alternative flow A1:**
+1. To change parameter "Pet's name" user should push on "Pet's name" line.
+2. The application will offer user to enter pet's name.
+3. The application will change pet's name on [Feed screen](#fs).
+4. End.<br>
+**Alternative flow A2:**
+1. To change parameter "Pet" user should push on "Pet" line.
+2. The application will offer user to choose from a list of kind of animals.
+3. The application will change pet's image on [Feed screen](#fs).
+4. End.<br>
