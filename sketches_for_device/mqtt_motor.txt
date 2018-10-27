@@ -1,0 +1,77 @@
+
+#include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+#include <Wire.h> 
+#include <AccelStepper.h>
+ 
+#define HALFSTEP 8   
+ 
+#define motorPin1  2 
+#define motorPin2  3 
+#define motorPin3  4 
+#define motorPin4  5 
+
+const char *ssid =  "vadim_new";   
+const char *pass =  "19216811admin";  
+
+const char *mqtt_server = "m21.cloudmqtt.com";
+const int mqtt_port = 12998;
+const char *mqtt_user = "ncybappt";
+const char *mqtt_pass = "ulwdVsHsufG3";
+String control = "0";
+
+AccelStepper stepper(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
+
+void callback(const MQTT::Publish& pub)
+{
+  String payload = pub.payload_string();
+  control = payload;
+  
+  if(String(pub.topic()) == "temp")
+  {
+    Serial.println(payload);
+  }
+}
+
+WiFiClient wclient;
+PubSubClient client(wclient, mqtt_server, mqtt_port);
+  
+
+void setup() 
+{
+   stepper.setMaxSpeed(1000);
+   stepper.setSpeed(500); 
+   Serial.begin(115200);
+}
+
+void loop() 
+{
+ if (WiFi.status() != WL_CONNECTED) 
+ {
+ WiFi.begin(ssid, pass); 
+  if (WiFi.waitForConnectResult() != WL_CONNECTED)
+  return;
+ }
+ if (WiFi.status() == WL_CONNECTED) 
+ {
+    if (!client.connected())
+    {
+       if (client.connect(MQTT::Connect("ESP-1")
+                         .set_auth(mqtt_user, mqtt_pass)))
+                         {
+                           client.set_callback(callback);
+                           client.subscribe("temp");
+                         }
+    }
+    if (client.connected()){
+      client.loop();
+    }
+  }
+  if(control == "1"){
+    stepper.setSpeed(500);
+    stepper.runSpeed();
+    }
+  else{
+    stepper.stop();
+    }
+}

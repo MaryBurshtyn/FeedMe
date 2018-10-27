@@ -1,0 +1,58 @@
+
+#include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+#include <Wire.h> 
+
+
+const char *ssid =  "******";   
+const char *pass =  "*********";  
+
+const char *mqtt_server = "m21.cloudmqtt.com";
+const int mqtt_port = 12998;
+const char *mqtt_user = "ncybappt";
+const char *mqtt_pass = "ulwdVsHsufG3";
+
+byte last=0;
+
+#define BUFFER_SIZE 100
+
+void callback(const MQTT::Publish& pub)
+{
+  String payload = pub.payload_string();
+  
+  if(String(pub.topic()) == "temp")
+  {
+    Serial.println(payload);
+  }
+}
+WiFiClient wclient;
+PubSubClient client(wclient, mqtt_server, mqtt_port);
+void setup() 
+{
+   Serial.begin(115200);
+}
+
+void loop() 
+{
+ if (WiFi.status() != WL_CONNECTED) 
+ {
+ WiFi.begin(ssid, pass); 
+  if (WiFi.waitForConnectResult() != WL_CONNECTED)
+  return;
+ }
+ if (WiFi.status() == WL_CONNECTED) 
+ {
+    if (!client.connected())
+    {
+       if (client.connect(MQTT::Connect("ESP-1")
+                         .set_auth(mqtt_user, mqtt_pass)))
+                         {
+                           client.set_callback(callback);
+                           client.subscribe("temp");
+                         }
+    }
+    if (client.connected()){
+      client.loop();
+    }
+  }
+}
