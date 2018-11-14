@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".petActivity">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="395dp"
+            android:layout_height="643dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="54dp"/>
+        <TextView
+                android:text="FeedMe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView11"
+                android:fontFamily="@font/cantata_one" android:textSize="36sp"
+                android:textColor="@android:color/black" android:textAlignment="center"/>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="221dp" android:gravity="center_vertical">
+            <Space
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/leftarrow"
+                    android:id="@+id/nextAnimalButton" android:scaleType="fitCenter"/>
+            <ImageView
+                    android:layout_width="213dp"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/cat" android:id="@+id/listImage"
+                    android:scaleType="fitXY"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/rightarrow"
+                    android:id="@+id/prevAnimalButton"/>
+        </TableRow>
+        <TextView
+                android:text="Choose your pet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView5" android:textSize="24sp"
+                android:fontFamily="@font/alice" android:textColor="@android:color/black"
+                android:textAlignment="center"/>
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="31dp"/>
+        <TextView
+                android:text="Enter pet's name"
+                android:layout_width="match_parent"
+                android:layout_height="39dp" android:id="@+id/textView10" android:textSize="18sp"
+                android:textColor="@android:color/black"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/petNameEditText"/>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+            <Space
+                    android:layout_width="271dp"
+                    android:layout_height="28dp"/>
+            <Button
+                    android:text="Next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/nextButton"/>
+        </TableRow>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
