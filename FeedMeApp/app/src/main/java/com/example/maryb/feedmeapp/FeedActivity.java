@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class FeedActivity extends AppCompatActivity {
     private Button mFeedButton;
     private ImageView mImageViewAnimals;
@@ -15,6 +18,7 @@ public class FeedActivity extends AppCompatActivity {
     private MQTTClient client;
     private EditText mPortionEditText;
     private int portion;
+    private Date currentTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //System.out.println("In feed activity on create");
@@ -43,11 +47,13 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 portion = Integer.parseInt(mPortionEditText.getText().toString());
-                if(portion > 0){
+                if(portion >= 1){
                     Toast.makeText(getApplicationContext(), "Pet fed successfully.",
                             Toast.LENGTH_LONG).show();
                     String message = "feed(" + portion + ")";
                     client.publishMessage(message);
+                    //currentTime = Calendar.getInstance().getTime();
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Enter portion more than zero.",
