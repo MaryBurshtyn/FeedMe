@@ -24,12 +24,14 @@ public class petActivity extends AppCompatActivity {
     private Button mNextButton;
     private EditText mEditTextName;
     private String petName;
+    private Settings settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
         View v = getWindow().getDecorView();
         v.setBackgroundColor(Color.parseColor("#ebc9ff"));
+        settings = Settings.getInstance();
         iconsList.add(R.drawable.cat);
         iconsList.add(R.drawable.dog);
         iconsList.add(R.drawable.rabbit);
@@ -75,8 +77,10 @@ public class petActivity extends AppCompatActivity {
                 */
                 petName = mEditTextName.getText().toString();
                 Intent nextActivity = new Intent(petActivity.this, FeedActivity.class);
-                nextActivity.putExtra("ANIMAL", iconsList.get(currentAnimal).toString());
-                nextActivity.putExtra("ANIMAL_NAME", petName);
+                settings.setPetImageID(iconsList.get(currentAnimal));
+                settings.setPetName(petName);
+                //nextActivity.putExtra("ANIMAL", iconsList.get(currentAnimal).toString());
+                //nextActivity.putExtra("ANIMAL_NAME", petName);
                 startActivity(nextActivity);
             }
         });

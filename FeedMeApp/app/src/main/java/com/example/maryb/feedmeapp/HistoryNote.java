@@ -11,6 +11,9 @@ public class HistoryNote {
         this.time = time;
         this.portion = portion;
     }
+    public HistoryNote(){
+        this.portion = 0;
+    }
     public void setData(String data){
         this.data = data;
     }

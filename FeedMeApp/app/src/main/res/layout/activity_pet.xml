@@ -9,11 +9,13 @@
 
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="395dp"
-            android:layout_height="643dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0" android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.0" android:layout_marginTop="8dp">
         <Space
                 android:layout_width="match_parent"
                 android:layout_height="54dp"/>
@@ -23,25 +25,27 @@
                 android:layout_height="wrap_content" android:id="@+id/textView11"
                 android:fontFamily="@font/cantata_one" android:textSize="36sp"
                 android:textColor="@android:color/black" android:textAlignment="center"/>
-        <TableRow
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="221dp" android:gravity="center_vertical">
-            <Space
-                    android:layout_width="30dp"
-                    android:layout_height="60dp"/>
+                android:layout_height="199dp" android:gravity="center_vertical|center_horizontal">
             <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="23dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/leftarrow"
-                    android:id="@+id/nextAnimalButton" android:scaleType="fitCenter"/>
+                    android:id="@+id/nextAnimalButton" android:scaleType="fitCenter"
+                    android:background="@android:color/transparent"/>
             <ImageView
                     android:layout_width="213dp"
-                    android:layout_height="wrap_content" app:srcCompat="@drawable/cat" android:id="@+id/listImage"
-                    android:scaleType="fitXY"/>
+                    android:layout_height="match_parent" app:srcCompat="@drawable/cat" android:id="@+id/listImage"
+                    android:scaleType="fitCenter" android:layout_gravity="center_vertical"
+            />
             <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="23dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/rightarrow"
-                    android:id="@+id/prevAnimalButton"/>
-        </TableRow>
+                    android:id="@+id/prevAnimalButton" android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"/>
+
+        </LinearLayout>
         <TextView
                 android:text="Choose your pet"
                 android:layout_width="match_parent"
@@ -66,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp">
             <Space
-                    android:layout_width="271dp"
+                    android:layout_width="260dp"
                     android:layout_height="28dp"/>
             <Button
                     android:text="Next"

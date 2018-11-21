@@ -7,4 +7,59 @@
         android:layout_height="match_parent"
         tools:context=".HistoryActivity">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0">
+        <TextView
+                android:text="History"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView12" android:textSize="24sp"
+                android:textColor="@android:color/black" android:fontFamily="@font/alice"
+                android:textAlignment="center"/>
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="47dp"/>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal">
+            <Button
+                    android:text="Day"
+                    android:layout_height="wrap_content" android:id="@+id/DayButton" android:layout_width="110dp"/>
+            <Button
+                    android:text="Week"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content" android:id="@+id/WeekButton"/>
+            <Button
+                    android:text="Month"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content" android:id="@+id/MonthButton"/>
+        </TableRow>
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp" android:id="@+id/table_Layout">
+
+            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/firstRow" android:gravity="top">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="197dp"
+                        android:layout_height="wrap_content" android:id="@+id/r1c1"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="197dp"
+                        android:layout_height="wrap_content" android:id="@+id/r1c2"/>
+            </TableRow>
+        </TableLayout>
+        <Button
+                android:text="Home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/HomeButton" android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/nav_header_vertical_spacing"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
