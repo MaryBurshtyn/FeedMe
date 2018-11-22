@@ -14,8 +14,8 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" android:layout_marginBottom="8dp" app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0">
         <TextView
                 android:text="History"
                 android:layout_width="match_parent"
@@ -40,26 +40,38 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content" android:id="@+id/MonthButton"/>
         </TableRow>
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="400dp" android:id="@+id/table_Layout">
+        <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="none"
+                android:layout_weight="1">
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp" android:id="@+id/table_Layout">
 
-            <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:id="@+id/firstRow" android:gravity="top">
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="197dp"
-                        android:layout_height="wrap_content" android:id="@+id/r1c1"/>
-                <TextView
-                        android:text="TextView"
-                        android:layout_width="197dp"
-                        android:layout_height="wrap_content" android:id="@+id/r1c2"/>
-            </TableRow>
-        </TableLayout>
-        <Button
-                android:text="Home"
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/firstRow" android:gravity="top">
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="197dp"
+                            android:layout_height="wrap_content" android:id="@+id/r1c1"/>
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="197dp"
+                            android:layout_height="wrap_content" android:id="@+id/r1c2"/>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/HomeButton" android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/nav_header_vertical_spacing"/>
+                android:layout_height="wrap_content" android:gravity="bottom">
+            <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/hand" android:id="@+id/HomeButton"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"/>
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

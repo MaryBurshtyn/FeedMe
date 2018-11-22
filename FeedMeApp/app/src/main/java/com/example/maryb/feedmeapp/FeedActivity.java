@@ -1,7 +1,10 @@
 package com.example.maryb.feedmeapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +32,8 @@ public class FeedActivity extends AppCompatActivity {
     private Button mFeedButton;
     private ImageView mImageViewAnimals;
     private TextView mTextView;
+    private TextView mLastFoodTimeTextView;
+    private TextView mLastFoodDateTextView;
     private MQTTClient client;
     private EditText mPortionEditText;
     private int portion;
@@ -44,6 +49,9 @@ public class FeedActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         //getActionBar().setTitle("Home");
+
+        mLastFoodTimeTextView = findViewById(R.id.LastFoodTime);
+        mLastFoodDateTextView = findViewById(R.id.LastFoodDate);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
@@ -61,10 +69,14 @@ public class FeedActivity extends AppCompatActivity {
                     case R.id.Analysis :
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
+                        Intent nextActivity2 = new Intent(FeedActivity.this,AnalysisActivity.class);
+                        startActivity(nextActivity2);
                         return true;
                     case R.id.settings :
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
+                        Intent nextActivity1 = new Intent(FeedActivity.this,SettingsActivity.class);
+                        startActivity(nextActivity1);
                         return true;
                 }
 
@@ -93,32 +105,48 @@ public class FeedActivity extends AppCompatActivity {
         history = History.getInstance();
         load();
 
+        mLastFoodTimeTextView.setText(history.getHistory().get(history.getHistory().size()-1).getTime());
+        mLastFoodDateTextView.setText(history.getHistory().get(history.getHistory().size()-1).getData());
         mFeedButton = findViewById(R.id.feedButton);
         mFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO if null string
-                portion = Integer.parseInt(mPortionEditText.getText().toString());
-                if(portion >= 1){
-                    Toast.makeText(getApplicationContext(), "Pet fed successfully.",
-                            Toast.LENGTH_LONG).show();
-                    String message = "feed(" + portion + ")";
-                    client.publishMessage(message);
-                    DateFormat df = new SimpleDateFormat("EE,dd.MM.yyyy,HH:mm:ss ");
-                    String currentDate = df.format(Calendar.getInstance().getTime());
-                    String date = currentDate.substring(3,13);
-                    String time = currentDate.substring(14,19);
-                    String dayOfWeek = currentDate.substring(0,2);
-                    HistoryNote note = new HistoryNote(dayOfWeek,date, time, portion);
-                    history.addNote(note);
-                    saveNote = dayOfWeek + " " + date + " " + time + " " + Integer.toString(portion)+"\n";
-                    save(saveNote);
+                //TODO send "1" for more then 1
+                if(mPortionEditText.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Enter some portion of food.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isConnected()){
+                    portion = Integer.parseInt(mPortionEditText.getText().toString());
+                    if(portion >= 6){
+                        Toast.makeText(getApplicationContext(), "Large portion.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(portion >= 1){
+                        Toast.makeText(getApplicationContext(), "Pet fed successfully.",
+                                Toast.LENGTH_LONG).show();
 
-
-
+                        String message = "feed(" + portion + ")";
+                        client.publishMessage(message);
+                        DateFormat df = new SimpleDateFormat("EE,dd.MM.yyyy,HH:mm:ss ");
+                        String currentDate = df.format(Calendar.getInstance().getTime());
+                        String date = currentDate.substring(3,13);
+                        String time = currentDate.substring(14,19);
+                        String dayOfWeek = currentDate.substring(0,2);
+                        HistoryNote note = new HistoryNote(dayOfWeek,date, time, portion);
+                        history.addNote(note);
+                        saveNote = dayOfWeek + " " + date + " " + time + " " + Integer.toString(portion)+"\n";
+                        save(saveNote);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Enter portion more than zero.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Enter portion more than zero.",
+                    Toast.makeText(getApplicationContext(), "Can't feed pet. No Internet access.",
                             Toast.LENGTH_SHORT).show();
                 }
 
@@ -173,6 +201,15 @@ public class FeedActivity extends AppCompatActivity {
             }
         }
     }
+    public boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -199,5 +236,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

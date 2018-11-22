@@ -12,13 +12,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-//TODO table scroll for day
 public class HistoryActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     private History history;
     private TextView column1;
     private TextView column2;
-    private Button mHomeButton;
+    private ImageButton mHomeButton;
     private Button mDayButton;
     private Button mWeekButton;
     private Button mMonthButton;
@@ -165,4 +164,31 @@ public class HistoryActivity extends AppCompatActivity {
                     TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    //@Override
+    //public void onBackPressed() {}
 }
