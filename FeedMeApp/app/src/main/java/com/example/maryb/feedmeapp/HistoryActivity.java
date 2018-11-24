@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 public class HistoryActivity extends AppCompatActivity {
     private TableLayout tableLayout;
     private History history;
@@ -110,20 +108,20 @@ public class HistoryActivity extends AppCompatActivity {
         column2.setText("Portion");
         ArrayList<HistoryNote> week = history.getWeekHistory();
 
-        for(int i = 0; i < week.size(); i++) {
+        for (HistoryNote aWeek : week) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView label_date = new TextView(this);
-            label_date.setText(week.get(i).getDayOfWeek());
+            label_date.setText(aWeek.getDayOfWeek());
             //label_date.setText("11:20");
             label_date.setPadding(5, 5, 5, 5);
             row.addView(label_date);// add the column to the table row here
 
             TextView portion = new TextView(this);
-            portion.setText(Integer.toString(week.get(i).getPortion()));
+            portion.setText(Integer.toString(aWeek.getPortion()));
             //portion.setText("3");
             portion.setPadding(5, 5, 5, 5);
             row.addView(portion);
@@ -142,20 +140,20 @@ public class HistoryActivity extends AppCompatActivity {
         column2.setText("Portion");
         ArrayList<HistoryNote> month = history.getMonthHistory();
 
-        for(int i = 0; i < month.size(); i++) {
+        for (HistoryNote aMonth : month) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView label_date = new TextView(this);
-            label_date.setText(month.get(i).getDayOfWeek());
+            label_date.setText(aMonth.getDayOfWeek());
             //label_date.setText("11:20");
             label_date.setPadding(5, 5, 5, 5);
             row.addView(label_date);// add the column to the table row here
 
             TextView portion = new TextView(this);
-            portion.setText(Integer.toString(month.get(i).getPortion()));
+            portion.setText(Integer.toString(aMonth.getPortion()));
             //portion.setText("3");
             portion.setPadding(5, 5, 5, 5);
             row.addView(portion);

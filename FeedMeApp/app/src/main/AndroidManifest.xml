@@ -36,11 +36,6 @@
 
         <activity android:name=".petActivity">
         </activity>
-        <activity
-                android:name=".slideMenuActivity"
-                android:label="@string/title_activity_slide_menu"
-                android:theme="@style/AppTheme">
-        </activity>
         <activity android:name=".HistoryActivity">
         </activity>
         <activity android:name=".SettingsActivity">

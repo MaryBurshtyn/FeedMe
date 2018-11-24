@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 public class petActivity extends AppCompatActivity {
-    private final String firtRun = "first_run";
+    private final String firstRun = "first_run";
     private SharedPreferences sPref;
-    private ArrayList<Integer> iconsList = new ArrayList<Integer>();
+    private ArrayList<Integer> iconsList = new ArrayList<>();
     private int currentAnimal;
     private ImageView mImageViewAnimals;
     private ImageButton mNextAnimalButton;
@@ -70,9 +70,9 @@ public class petActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                sPref = getSharedPreferences(firtRun, MODE_PRIVATE);
+                sPref = getSharedPreferences(firstRun, MODE_PRIVATE);
                 /*SharedPreferences.Editor ed = sPref.edit();
-                ed.putString(firtRun, "false");
+                ed.putString(firstRun, "false");
                 ed.apply();
                 */
                 petName = mEditTextName.getText().toString();

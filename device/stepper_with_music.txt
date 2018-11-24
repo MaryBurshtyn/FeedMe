@@ -1,0 +1,104 @@
+
+#include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+#include <Wire.h> 
+#include <AccelStepper.h>
+ 
+#define HALFSTEP 8   
+ 
+#define motorPin1  16 
+#define motorPin2  5 
+#define motorPin3  0 
+#define motorPin4  2 
+#define musicPin   4 
+const char *ssid =  "vadim_new";   
+const char *pass =  "19216811admin";  
+const char *mqtt_server = "m21.cloudmqtt.com";
+const int mqtt_port = 12998;
+const char *mqtt_user = "ncybappt";
+const char *mqtt_pass = "ulwdVsHsufG3";
+String control = "0";
+bool musicPlayed = false;
+int curPos = 0;
+int MELODY[32] = {440,554,659,554,440,554,659,554,440,554,659,554,440,554,659,554,
+          415,554,659,554,415,554,659,554,415,554,659,554,415,554,659,554};
+AccelStepper stepper(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
+
+void callback(const MQTT::Publish& pub)
+{
+  String payload = pub.payload_string();
+  control = payload;
+  
+  if(String(pub.topic()) == "temp")
+  {
+    Serial.println(payload);
+  }
+}
+
+WiFiClient wclient;
+PubSubClient client(wclient, mqtt_server, mqtt_port);
+  
+
+void setup() 
+{
+  pinMode(musicPin, OUTPUT);
+  stepper.setMaxSpeed(1000);
+  stepper.setSpeed(900);
+   Serial.begin(115200);
+}
+
+void loop() 
+{
+ if (WiFi.status() != WL_CONNECTED) 
+ {
+ WiFi.begin(ssid, pass); 
+  if (WiFi.waitForConnectResult() != WL_CONNECTED)
+  return;
+ }
+ if (WiFi.status() == WL_CONNECTED) 
+ {
+    if (!client.connected())
+    {
+       if (client.connect(MQTT::Connect("ESP-1")
+                         .set_auth(mqtt_user, mqtt_pass)))
+                         {
+                           client.set_callback(callback);
+                           client.subscribe("temp");
+                         }
+    }
+    if (client.connected()){
+      client.loop();
+    }
+  }
+  int portion = control.toInt();
+  if(portion > 0){ 
+    if(!musicPlayed){
+      for(int i = 0; i< 32; i++){
+        tone(musicPin,MELODY[i],250);
+        delay(250);
+        noTone(musicPin);
+      }
+      musicPlayed = true;
+    }
+   if(stepper.currentPosition() == curPos){
+    stepper.moveTo(2800);
+    if (stepper.distanceToGo() == 0){
+      stepper.moveTo(2800);//5847
+    }
+   }
+   if (stepper.distanceToGo() == 0) 
+   { 
+    portion = portion - 1;
+    control = String(portion);
+    stepper.setCurrentPosition(0);
+   } 
+   stepper.setSpeed(900);
+   stepper.runSpeedToPosition(); 
+    }
+  else if(portion == 0){
+    musicPlayed = false;
+    portion = portion - 1;
+    stepper.stop();
+    }
+   else return;
+}

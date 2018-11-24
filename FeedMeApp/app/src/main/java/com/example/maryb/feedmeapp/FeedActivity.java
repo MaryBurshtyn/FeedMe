@@ -21,7 +21,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class FeedActivity extends AppCompatActivity {
     private static final String FILE_NAME = "history.txt";
@@ -175,7 +174,7 @@ public class FeedActivity extends AppCompatActivity {
     }
     public void load() {
         FileInputStream fis = null;
-        ArrayList<HistoryNote> list = new ArrayList<HistoryNote>();
+        ArrayList<HistoryNote> list = new ArrayList<>();
         try {
             fis = openFileInput(FILE_NAME);
             InputStreamReader isr = new InputStreamReader(fis);

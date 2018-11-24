@@ -16,7 +16,6 @@ public class startActivity extends AppCompatActivity {
     private static int TIME_OUT = 4000;
     private final String firtRun = "first_run";
     private SharedPreferences sPref;
-    private Handler mHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -47,7 +47,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 x = 0;
                 y = 0;
                 GraphView graph = (GraphView) findViewById(R.id.graphView);
-                series = new LineGraphSeries<DataPoint>();
+                series = new LineGraphSeries<>();
                 for(int i = 0; i<140; i++) {
                     x = x + 0.1;
                     if (i < 20) y = week.get(0).getPortion();
