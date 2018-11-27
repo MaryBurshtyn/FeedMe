@@ -17,6 +17,7 @@ public class History {
         }
         return instance;
     }
+    //TODO история за неделю не работает правильно
     public void setHistoryList(ArrayList<HistoryNote> list) {
         historyList = list;
     }
@@ -41,34 +42,36 @@ public class History {
     public ArrayList<HistoryNote> getCurrentWeek(){
         Calendar c1 = Calendar.getInstance();
         //first day of week
-        c1.set(Calendar.DAY_OF_WEEK, 1);
-        int year1 = c1.get(Calendar.YEAR);
-        int month1 = c1.get(Calendar.MONTH)+1;
-        int day1 = c1.get(Calendar.DAY_OF_MONTH)+1;
+        String[] week = new String[7];
+        for (int i = 2; i < 8; i ++){
+            c1.set(Calendar.DAY_OF_WEEK,i);
+            int year1 = c1.get(Calendar.YEAR);
+            int month1 = c1.get(Calendar.MONTH)+1;
+            int day1 = c1.get(Calendar.DAY_OF_MONTH);
+            week[i-2] = Integer.toString(day1)+"."+Integer.toString(month1)+"."+Integer.toString(year1);
+        }
         //last day of week
-        c1.set(Calendar.DAY_OF_WEEK, 7);
+        c1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         int year7 = c1.get(Calendar.YEAR);
         int month7 = c1.get(Calendar.MONTH)+1;
-        int day7 = c1.get(Calendar.DAY_OF_MONTH)+1;
-        if(day7 == 32){
-            day7 = 1;
-            month7++;
+        int day7 = c1.get(Calendar.DAY_OF_MONTH);
+        week[6] = Integer.toString(day7)+"."+Integer.toString(month7)+"."+Integer.toString(year7);
+        ArrayList<HistoryNote> weekHist = new ArrayList<>();
+        for (int i = 0; i < historyList.size(); i++){
+            if (historyList.get(i).getData().equals(week[0])||historyList.get(i).getData().equals(week[1])
+            ||historyList.get(i).getData().equals(week[2])||historyList.get(i).getData().equals(week[3])
+            ||historyList.get(i).getData().equals(week[4])||historyList.get(i).getData().equals(week[5])||
+                    historyList.get(i).getData().equals(week[6]))
+            weekHist.add(historyList.get(i));
         }
-        String mon = Integer.toString(day1)+"."+Integer.toString(month1)+"."+Integer.toString(year1);
-        String sun = Integer.toString(day7)+"."+Integer.toString(month7)+"."+Integer.toString(year7);
-        int start = findDateIndex(mon);
-        if(start == -1) start = 0;
-        int end = findDateIndex(sun);
-        if(end == -1) end = historyList.size();
-        ArrayList<HistoryNote> week = new ArrayList<>();
-        for (int i = start; i < end; i++){
-            week.add(historyList.get(i));
-        }
-        return week;
+        return weekHist;
     }
     public Integer findDateIndex(String date){
-        for (int i = 0; i < historyList.size(); i++){
-            if(historyList.get(i).getData() == date) return i;
+        for (int j = 0; j < 7; j++){
+
+            for (int i = 0; i < historyList.size(); i++){
+                if(historyList.get(i).getData() == date) return i;
+            }
         }
         return -1;
     }
@@ -149,5 +152,43 @@ public class History {
             monthHistory.get(i).setPortion(portion[i]);
         }
         return  monthHistory;
+    }
+    public ArrayList<HistoryNote> getCurrentYear(){
+        Calendar c1 = Calendar.getInstance();
+        int year = c1.get(Calendar.YEAR);
+        String currentYear = Integer.toString(year);
+        ArrayList<HistoryNote> yearHistory = new ArrayList<>();
+        for (int i = 0; i < historyList.size(); i ++) {
+            if (historyList.get(i).getData().substring(6).equals(currentYear))
+                yearHistory.add(historyList.get(i));
+        }
+        return yearHistory;
+
+    }
+    public ArrayList<HistoryNote> getYearHistory() {
+        int portion[] = new int[12];
+        ArrayList<HistoryNote> month = getCurrentYear();
+        ArrayList<HistoryNote> yearHistory = new ArrayList<>();
+        for (HistoryNote aMonth : month) {
+            Integer mon = Integer.parseInt(aMonth.getData().substring(3, 5));
+            portion[mon - 1] += aMonth.getPortion();
+        }
+
+        yearHistory.add(new HistoryNote("Jan", "", "", 0));
+        yearHistory.add(new HistoryNote("Feb", "", "", 0));
+        yearHistory.add(new HistoryNote("March", "", "", 0));
+        yearHistory.add(new HistoryNote("Apr", "", "", 0));
+        yearHistory.add(new HistoryNote("May", "", "", 0));
+        yearHistory.add(new HistoryNote("Jun", "", "", 0));
+        yearHistory.add(new HistoryNote("Jul", "", "", 0));
+        yearHistory.add(new HistoryNote("Aug", "", "", 0));
+        yearHistory.add(new HistoryNote("Sept", "", "", 0));
+        yearHistory.add(new HistoryNote("Oct", "", "", 0));
+        yearHistory.add(new HistoryNote("Nov", "", "", 0));
+        yearHistory.add(new HistoryNote("Dec", "", "", 0));
+        for (int i = 0; i < 12; i++) {
+            yearHistory.get(i).setPortion(portion[i]);
+        }
+        return yearHistory;
     }
 }

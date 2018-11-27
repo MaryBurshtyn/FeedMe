@@ -3,7 +3,12 @@ package com.example.maryb.feedmeapp;
 import java.util.ArrayList;
 
 public class Settings {
+    //TODO Add money
+    //TODO add sounds
+    //TODO add notifications
+    //TODO save settings
     private static Settings instance;
+    private double cost;
     private String petName;
     private Integer petImageID;
     private String kindOfAnimal;
@@ -14,6 +19,7 @@ public class Settings {
         sound = true;
         notifications = true;
         autoMode = false;
+        cost = 0;
     }
     public static Settings getInstance(){
         if(instance == null){
@@ -42,6 +48,12 @@ public class Settings {
     public String getPetName(){
        return petName;
     }
+    public double getCost(){
+        return cost;
+    }
+    public void setCost(double cost){
+        this.cost = cost;
+    }
     public Integer getPetImageID(){
         return petImageID;
     }
@@ -56,5 +68,14 @@ public class Settings {
     }
     public boolean getAutoModeSetting(){
         return autoMode;
+    }
+    public void setSound(boolean sound){
+        this.sound = sound;
+    }
+    public void setNotifications(boolean notifications){
+        this.notifications = notifications;
+    }
+    public void setAutoMode(boolean AutoMode){
+        this.autoMode = AutoMode;
     }
 }
