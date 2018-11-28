@@ -15,14 +15,16 @@
             android:theme="@style/AppTheme">
         android:hardwareAccelerated="false"
         android:largeHeap="true"
-        <activity android:name=".startActivity">
+        <activity android:name=".startActivity"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".signUpActivity">
+        <activity android:name=".signUpActivity"
+                  android:noHistory="true">
         </activity>
 
         <meta-data
@@ -30,11 +32,13 @@
                 android:resource="@array/preloaded_fonts"/>
 
         <activity android:name=".FeedActivity">
+
         </activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
 
-        <activity android:name=".petActivity">
+        <activity android:name=".petActivity"
+                  android:noHistory="true">
         </activity>
         <activity android:name=".HistoryActivity">
         </activity>
@@ -42,6 +46,15 @@
         </activity>
         <activity android:name=".AnalysisActivity">
         </activity>
+        <receiver
+                android:name=".notificationReceiver"
+                android:enabled="true"
+                android:exported="false" >
+        </receiver>
+        <service
+                android:name=".intentService"
+                android:exported="false" >
+        </service>
     </application>
 
 </manifest>

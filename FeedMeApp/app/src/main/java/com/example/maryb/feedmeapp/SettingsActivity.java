@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class SettingsActivity extends AppCompatActivity {
     private Settings settings;
     private Switch soundSwitch;
@@ -17,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView mPetName;
     private TextView mMoney;
     private TextView mKindOfPet;
+    private static final String SETTINGS_FILE = "settings.txt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     settings.setSound(false);
                 }
+                saveSettings(settings);
             }
         });
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -53,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     settings.setNotifications(false);
                 }
+                saveSettings(settings);
             }
         });
         autoModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,6 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     settings.setAutoMode(false);
                 }
+                saveSettings(settings);
             }
         });
         mPetName.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (!nameEditText.getText().toString().isEmpty()) {
                             settings.setPetName(nameEditText.getText().toString());
+                            saveSettings(settings);
                             mPetName.setText(settings.getPetName());
                             Toast.makeText(SettingsActivity.this,
                                     "Name change successfully.",
@@ -110,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (!moneyEditText.getText().toString().isEmpty()) {
                             settings.setCost(Double.parseDouble(moneyEditText.getText().toString()));
+                            saveSettings(settings);
                             mMoney.setText(Double.toString(settings.getCost()));
                             Toast.makeText(SettingsActivity.this,
                                     "Cost set successfully.",
@@ -131,6 +141,27 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+    }
+    public void saveSettings(Settings settings) {
+        FileOutputStream fos = null;
+        String config = settings.getPetName()+" "+settings.getPetImageID()+ " " +settings.getCost()+
+                " "+settings.getSoundSetting() + " " + settings.getNotificationSetting();
+        try {
+            fos = openFileOutput(SETTINGS_FILE, MODE_PRIVATE);
+            fos.write(config.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     @Override
     public void onStart() {

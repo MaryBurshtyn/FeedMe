@@ -17,7 +17,6 @@ public class History {
         }
         return instance;
     }
-    //TODO история за неделю не работает правильно
     public void setHistoryList(ArrayList<HistoryNote> list) {
         historyList = list;
     }

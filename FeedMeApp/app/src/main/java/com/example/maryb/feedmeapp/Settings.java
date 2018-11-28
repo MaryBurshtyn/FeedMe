@@ -3,10 +3,7 @@ package com.example.maryb.feedmeapp;
 import java.util.ArrayList;
 
 public class Settings {
-    //TODO Add money
     //TODO add sounds
-    //TODO add notifications
-    //TODO save settings
     private static Settings instance;
     private double cost;
     private String petName;

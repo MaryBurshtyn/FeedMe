@@ -1,10 +1,14 @@
 package com.example.maryb.feedmeapp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -17,31 +21,37 @@ import android.view.View;
 import android.widget.*;
 
 import java.io.*;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class FeedActivity extends AppCompatActivity {
-    private static final String FILE_NAME = "history.txt";
+    private static boolean userPressedBackAgain = false;
+    private static final String HISTORY_FILE = "history.txt";
+    private static final String SETTINGS_FILE = "settings.txt";
     private String saveNote;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Button mFeedButton;
+    private Button mAddButton;
     private ImageView mImageViewAnimals;
     private TextView mTextView;
     private TextView mLastFoodTimeTextView;
     private TextView mLastFoodDateTextView;
     private MQTTClient client;
     private EditText mPortionEditText;
+    private EditText mTimeEditText;
     private int portion;
     private String currentDate;
     public History history;
     private Settings settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //System.out.println("In feed activity on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
@@ -51,6 +61,43 @@ public class FeedActivity extends AppCompatActivity {
 
         mLastFoodTimeTextView = findViewById(R.id.LastFoodTime);
         mLastFoodDateTextView = findViewById(R.id.LastFoodDate);
+        mAddButton = findViewById(R.id.AddButton);
+        mTimeEditText = findViewById(R.id.TimeEditText);
+
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String time =  mTimeEditText.getText().toString();
+                Intent notifyIntent = new Intent(FeedActivity.this,notificationReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast
+                        (FeedActivity.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) FeedActivity.this.getSystemService(Context.ALARM_SERVICE);
+
+                Calendar now = Calendar.getInstance();
+                Calendar calendarStart = Calendar.getInstance();
+                now.setTimeInMillis(System.currentTimeMillis());
+                calendarStart.setTimeInMillis(now.getTimeInMillis());
+
+                calendarStart.set(Calendar.HOUR_OF_DAY,Integer.parseInt(time.substring(0,2)));
+                calendarStart.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,4)));
+                calendarStart.set(Calendar.SECOND, 0);
+                calendarStart.set(Calendar.MILLISECOND, 0);
+
+
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarStart.getTimeInMillis(), pendingIntent);
+                mTimeEditText.setText("");
+               /* Date dat = new Date();
+                Calendar cal_alarm = Calendar.getInstance();
+                Calendar cal_now = Calendar.getInstance();
+                cal_now.setTime(dat);
+                cal_alarm.setTime(dat);
+                cal_alarm.set(Calendar.HOUR_OF_DAY,Integer.parseInt(time.substring(0,2)));
+                cal_alarm.set(Calendar.MINUTE,Integer.parseInt(time.substring(3,4)));
+                cal_alarm.set(Calendar.SECOND,0);*/
+                //alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            }
+        });
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
@@ -92,6 +139,7 @@ public class FeedActivity extends AppCompatActivity {
         mPortionEditText = findViewById(R.id.portionEditText);
 
         settings = Settings.getInstance();
+        loadSettings();
         mImageViewAnimals = findViewById(R.id.animalImageView);
         //String animalId = getIntent().getStringExtra("ANIMAL");
         //int imageId = Integer.parseInt(animalId,10);
@@ -110,7 +158,6 @@ public class FeedActivity extends AppCompatActivity {
         mFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO send "1" for more then 1
                 if(mPortionEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Enter some portion of food.",
                             Toast.LENGTH_SHORT).show();
@@ -127,7 +174,7 @@ public class FeedActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Pet fed successfully.",
                                 Toast.LENGTH_LONG).show();
 
-                        String message = "feed(" + portion + ")";
+                        String message = Integer.toString(portion);
                         client.publishMessage(message);
                         DateFormat df = new SimpleDateFormat("EE,dd.MM.yyyy,HH:mm:ss ");
                         String currentDate = df.format(Calendar.getInstance().getTime());
@@ -156,7 +203,7 @@ public class FeedActivity extends AppCompatActivity {
     public void save(String note) {
         FileOutputStream fos = null;
         try {
-            fos = openFileOutput(FILE_NAME,MODE_APPEND| MODE_PRIVATE);
+            fos = openFileOutput(HISTORY_FILE,MODE_APPEND| MODE_PRIVATE);
             fos.write(note.getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -176,7 +223,7 @@ public class FeedActivity extends AppCompatActivity {
         FileInputStream fis = null;
         ArrayList<HistoryNote> list = new ArrayList<>();
         try {
-            fis = openFileInput(FILE_NAME);
+            fis = openFileInput(HISTORY_FILE);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             String text;
@@ -209,6 +256,40 @@ public class FeedActivity extends AppCompatActivity {
             return false;
         }
     }
+    public void loadSettings() {
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(SETTINGS_FILE);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String text;
+            text = br.readLine();
+            String[] parts = text.split(" ");
+            double cost = Double.parseDouble(parts[2]);
+            settings.setCost(cost);
+            String petName = parts[0];
+            settings.setPetName(petName);
+            Integer petImageID = Integer.parseInt(parts[1]);
+            settings.setPetImageID(petImageID);
+            boolean sound = Boolean.parseBoolean(parts[3]);
+            settings.setSound(sound);
+            boolean notifications = Boolean.parseBoolean(parts[3]);
+            settings.setNotifications(notifications);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -234,8 +315,30 @@ public class FeedActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
+    public void onBackPressed() {
+        if (!userPressedBackAgain) {
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+            userPressedBackAgain = true;
+        } else {
+            super.onBackPressed();
+        }
+
+        new CountDownTimer(3000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                userPressedBackAgain = false;
+            }
+        }.start();
+
+    }
+    /*@Override
     public void onBackPressed() {
         moveTaskToBack(true);
-    }
+    }*/
 }

@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class petActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class petActivity extends AppCompatActivity {
     private EditText mEditTextName;
     private String petName;
     private Settings settings;
+    private static final String SETTINGS_FILE = "settings.txt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,19 +75,41 @@ public class petActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sPref = getSharedPreferences(firstRun, MODE_PRIVATE);
-                /*SharedPreferences.Editor ed = sPref.edit();
+                SharedPreferences.Editor ed = sPref.edit();
                 ed.putString(firstRun, "false");
                 ed.apply();
-                */
+
                 petName = mEditTextName.getText().toString();
                 Intent nextActivity = new Intent(petActivity.this, FeedActivity.class);
                 settings.setPetImageID(iconsList.get(currentAnimal));
                 settings.setPetName(petName);
+                saveSettings(settings);
                 //nextActivity.putExtra("ANIMAL", iconsList.get(currentAnimal).toString());
                 //nextActivity.putExtra("ANIMAL_NAME", petName);
                 startActivity(nextActivity);
             }
         });
+    }
+    public void saveSettings(Settings settings) {
+        FileOutputStream fos = null;
+        String config = settings.getPetName()+" "+settings.getPetImageID()+ " " +settings.getCost()+
+                " "+settings.getSoundSetting() + " " + settings.getNotificationSetting();
+        try {
+            fos = openFileOutput(SETTINGS_FILE, MODE_PRIVATE);
+            fos.write(config.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     @Override
     public void onStart() {
