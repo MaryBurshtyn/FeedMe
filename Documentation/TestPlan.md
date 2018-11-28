@@ -67,5 +67,8 @@ This application will be tested manually.
 # 6 <a name = "6"> Pass / Fail Criteria </a>
 Results of testing are represented in [Testing Results](Documentation/TestingResult.md) document.
 # 7 <a name = "7"> Conclusion </a>
+Application "FeedMe" was tested and 3 of 20 tests was failed. But presumably all these failures was caused by only one problem: wrong setting up of notification. All other 17 tests was successfully passed.
 
+Also was tested additional function: change of food cost. It was failed cause after cost was changed all statistic changed according new cost too. But (as suggestion) it may not necessarily be removed, it can be represented as optional change of cost if it was seted incorrectly previously but of course with completing with correct variant of function.
 
+Another suggestion - decrease welcome screen show time. From 4 sec to 2 sec.
