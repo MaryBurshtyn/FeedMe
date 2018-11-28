@@ -92,14 +92,14 @@ This application will be tested manually.
 | 18 | Add next food |<br>1. Launch application. If it is not first enterance application will open "Feed screen"</br><br>2. Enter time for netx feeding at the "Next food" field.</br> <br>3. Click on "Add" button</br>|Application should:<br>1.if notifications is turned on - at set time notify user to feed pet. </br><br>2. if notificatios if turned off and auto mode is turned on - application shouldn't show notifications and feed pet automtically</br>| Application sent notification immediately even if it was seted at later time. | Fail |
 | 19 | Show last food |<br>1. Launch application. If it is not first enterance application will open "Feed screen"</br>|Application should show last time of feeding at "Feed screen".| Application showed new last time of feeding at "Feed screen". | Pass |
 | 20 |Usability |<br>1. Launch application.</br><br>2. Look through all application.</br>|<br>Button "Feed" should contrast and will be differ from other elements.</br><br>All functional elements of the user interface should have names describing the action that the element does.</br>| Button "Feed" is contrast and differ from other elements. All functional elements have names describing the action that the element does. | Pass |
-| 21 |The same layouts on different devices |<br>1. Install application to another device.</br><br>2. Look through all application.</br><br>3. Check all layouts.</br>| Application should have the same layouts on current devices. ||  |
-| 22 |Incoming interrupts |<br>1. Launch application.</br><br>2. Call up the phone on which application is launched.</br>| Application should accept incoming call without closing the application.|| |
-| 23 | Installing and running the application. |<br>1. Download apk file and click on install.</br><br>2.Run installed application.</br>| Application should be installed and ran successfully if device and OS is met the system requirements. || |
+| 21 |The same layouts on different devices |<br>1. Install application to another device.</br><br>2. Look through all application.</br><br>3. Check all layouts.</br>| Application should have the same layouts on current devices. | Application have the same layouts at all screens. | Pass |
+| 22 |Incoming interrupts |<br>1. Launch application.</br><br>2. Call up the phone on which application is launched.</br>| Application should accept incoming call without closing the application.| When someone calling up and application is launched user can pick up the phone and after conversation finish continue to use launched application. | Pass |
+| 23 | Installing and running the application. |<br>1. Download apk file and click on install.</br><br>2.Run installed application.</br>| Application should be installed and ran successfully if device and OS is met the system requirements. | Installing and running passed successfully. | Pass |
 
 
 # 7 <a name = "7"> Conclusion </a>
-Application "FeedMe" was tested and 3 of 20 tests was failed. But presumably all these failures was caused by only one problem: wrong setting up of notification. All other 17 tests was successfully passed.
+Application "FeedMe" was tested and 3 of 23 tests was failed. But presumably all these failures was caused by only one problem: wrong setting up of notification. All other 20 tests was successfully passed.
 
 Also was tested additional function: change cost of food. It was failed cause after cost was changed all statistic changed according new cost too. But (as suggestion) it may not necessarily be removed, it can be represented as optional change of cost if it was set incorrectly previously but of course with completing with correct variant of function.
 
-Another suggestion - decrease welcome screen show time. From 4 sec to 2 sec.
+Another suggestion: decrease welcome screen show time - from 4 sec to 2 sec.
