@@ -56,24 +56,16 @@ public class History {
         int day7 = c1.get(Calendar.DAY_OF_MONTH);
         week[6] = Integer.toString(day7)+"."+Integer.toString(month7)+"."+Integer.toString(year7);
         ArrayList<HistoryNote> weekHist = new ArrayList<>();
-        for (int i = 0; i < historyList.size(); i++){
-            if (historyList.get(i).getData().equals(week[0])||historyList.get(i).getData().equals(week[1])
-            ||historyList.get(i).getData().equals(week[2])||historyList.get(i).getData().equals(week[3])
-            ||historyList.get(i).getData().equals(week[4])||historyList.get(i).getData().equals(week[5])||
-                    historyList.get(i).getData().equals(week[6]))
-            weekHist.add(historyList.get(i));
+        for (HistoryNote aHistoryList : historyList) {
+            if (aHistoryList.getData().equals(week[0]) || aHistoryList.getData().equals(week[1])
+                    || aHistoryList.getData().equals(week[2]) || aHistoryList.getData().equals(week[3])
+                    || aHistoryList.getData().equals(week[4]) || aHistoryList.getData().equals(week[5]) ||
+                    aHistoryList.getData().equals(week[6]))
+                weekHist.add(aHistoryList);
         }
         return weekHist;
     }
-    public Integer findDateIndex(String date){
-        for (int j = 0; j < 7; j++){
 
-            for (int i = 0; i < historyList.size(); i++){
-                if(historyList.get(i).getData() == date) return i;
-            }
-        }
-        return -1;
-    }
     public ArrayList<HistoryNote> getWeekHistory(){
         ArrayList<HistoryNote> week = getCurrentWeek();
         ArrayList<HistoryNote> weekHistory = new ArrayList<>();
@@ -157,9 +149,9 @@ public class History {
         int year = c1.get(Calendar.YEAR);
         String currentYear = Integer.toString(year);
         ArrayList<HistoryNote> yearHistory = new ArrayList<>();
-        for (int i = 0; i < historyList.size(); i ++) {
-            if (historyList.get(i).getData().substring(6).equals(currentYear))
-                yearHistory.add(historyList.get(i));
+        for (HistoryNote aHistoryList : historyList) {
+            if (aHistoryList.getData().substring(6).equals(currentYear))
+                yearHistory.add(aHistoryList);
         }
         return yearHistory;
 

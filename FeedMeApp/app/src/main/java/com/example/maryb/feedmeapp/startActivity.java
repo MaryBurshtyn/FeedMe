@@ -2,19 +2,16 @@ package com.example.maryb.feedmeapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import java.lang.Runnable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class startActivity extends AppCompatActivity {
     private static int TIME_OUT = 4000;
-    private final String firtRun = "first_run";
+    private final String first_run = "first_run";
     private SharedPreferences sPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +19,8 @@ public class startActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
-        sPref = getSharedPreferences(firtRun,MODE_PRIVATE);
-        String firstRun = sPref.getString(firtRun, "");
+        sPref = getSharedPreferences(first_run,MODE_PRIVATE);
+        String firstRun = sPref.getString(first_run, "");
         if( firstRun.equals("false")){
             new Handler().postDelayed(new Runnable() {
                 @Override

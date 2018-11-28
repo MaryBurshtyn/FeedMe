@@ -1,6 +1,5 @@
 package com.example.maryb.feedmeapp;
 
-import java.util.ArrayList;
 
 public class Settings {
     //TODO add sounds

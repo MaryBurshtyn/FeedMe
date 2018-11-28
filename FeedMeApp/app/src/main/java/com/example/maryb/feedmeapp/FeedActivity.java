@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,19 +15,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
 import java.io.*;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class FeedActivity extends AppCompatActivity {
     private static boolean userPressedBackAgain = false;
@@ -48,7 +43,6 @@ public class FeedActivity extends AppCompatActivity {
     private EditText mPortionEditText;
     private EditText mTimeEditText;
     private int portion;
-    private String currentDate;
     public History history;
     private Settings settings;
     @Override
@@ -88,8 +82,10 @@ public class FeedActivity extends AppCompatActivity {
                 calendarStart.set(Calendar.SECOND, 0);
                 calendarStart.set(Calendar.MILLISECOND, 0);
 
+                if(settings.getNotificationSetting()){
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarStart.getTimeInMillis(), pendingIntent);
+                }
 
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarStart.getTimeInMillis(), pendingIntent);
                 mTimeEditText.setText("");
                /* Date dat = new Date();
                 Calendar cal_alarm = Calendar.getInstance();
@@ -258,11 +254,7 @@ public class FeedActivity extends AppCompatActivity {
     public boolean isConnected(){
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
+        return netInfo != null && netInfo.isConnected();
     }
     public void loadSettings() {
         FileInputStream fis = null;

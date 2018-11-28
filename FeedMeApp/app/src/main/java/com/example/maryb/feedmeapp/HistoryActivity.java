@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 public class HistoryActivity extends AppCompatActivity {
     private TableLayout tableLayout;
@@ -93,20 +92,20 @@ public class HistoryActivity extends AppCompatActivity {
 
         //ArrayList<HistoryNote> day = history.getHistory();
         ArrayList<HistoryNote> day = history.getCurrentDay();
-        for(int i = 0; i < day.size(); i++) {
+        for (HistoryNote aDay : day) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView label_date = new TextView(this);
-            label_date.setText(day.get(i).getTime());
+            label_date.setText(aDay.getTime());
             //label_date.setText("11:20");
             label_date.setPadding(5, 5, 5, 5);
             row.addView(label_date);// add the column to the table row here
 
             TextView portion = new TextView(this);
-            portion.setText(Integer.toString(day.get(i).getPortion()));
+            portion.setText(Integer.toString(aDay.getPortion()));
             //portion.setText("3");
             portion.setPadding(5, 5, 5, 5);
             row.addView(portion);
