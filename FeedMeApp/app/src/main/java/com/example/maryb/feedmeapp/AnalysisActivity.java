@@ -2,6 +2,7 @@ package com.example.maryb.feedmeapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,7 @@ public class AnalysisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_analysis);
         View v = getWindow().getDecorView();
         v.setBackgroundColor(Color.parseColor("#ebc9ff"));
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         currButton = 0;
         settings = Settings.getInstance();
         history = History.getInstance();
@@ -48,6 +50,9 @@ public class AnalysisActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 Intent nextActivity = new Intent(AnalysisActivity.this, FeedActivity.class);
                 startActivity(nextActivity);
             }
@@ -56,6 +61,9 @@ public class AnalysisActivity extends AppCompatActivity {
         weekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showWeekGraph(0);
                 currButton = 1;
             }
@@ -63,6 +71,9 @@ public class AnalysisActivity extends AppCompatActivity {
         monthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showMonthGraph(0);
                 currButton = 2;
             }
@@ -70,6 +81,9 @@ public class AnalysisActivity extends AppCompatActivity {
         yearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showYearGraph(0);
                 currButton = 3;
             }
@@ -77,6 +91,9 @@ public class AnalysisActivity extends AppCompatActivity {
         moneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 switch (currButton){
                     case 0: graph.removeAllSeries(); break;
                     case 1: showWeekGraph(1);break;
@@ -89,6 +106,9 @@ public class AnalysisActivity extends AppCompatActivity {
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 switch (currButton){
                     case 0: graph.removeAllSeries(); break;
                     case 1: showWeekGraph(0);break;

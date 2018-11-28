@@ -3,6 +3,7 @@ package com.example.maryb.feedmeapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class petActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         View v = getWindow().getDecorView();
         v.setBackgroundColor(Color.parseColor("#ebc9ff"));
         settings = Settings.getInstance();
@@ -50,6 +52,9 @@ public class petActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 if((iconsList.size()-1) == currentAnimal){
                     currentAnimal = 0;
                 }

@@ -3,6 +3,7 @@ package com.example.maryb.feedmeapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         View v = getWindow().getDecorView();
         v.setBackgroundColor(Color.parseColor("#ebc9ff"));
         mMoney = findViewById(R.id.moneyTextView);
@@ -44,6 +46,9 @@ public class SettingsActivity extends AppCompatActivity {
         autoModeSwitch.setChecked(settings.getAutoModeSetting());
         soundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 if(soundSwitch.isChecked()){
                     settings.setSound(true);
                 } else {
@@ -54,6 +59,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 if(notificationSwitch.isChecked()){
                     settings.setNotifications(true);
                 } else {
@@ -64,6 +72,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
         autoModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 if(autoModeSwitch.isChecked()){
                     settings.setAutoMode(true);
                 } else {
@@ -137,6 +148,9 @@ public class SettingsActivity extends AppCompatActivity {
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 Intent nextActivity = new Intent(SettingsActivity.this, FeedActivity.class);
                 startActivity(nextActivity);
             }

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -52,6 +53,7 @@ public class FeedActivity extends AppCompatActivity {
     private Settings settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
@@ -67,6 +69,9 @@ public class FeedActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 String time =  mTimeEditText.getText().toString();
                 Intent notifyIntent = new Intent(FeedActivity.this,notificationReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast
@@ -158,6 +163,9 @@ public class FeedActivity extends AppCompatActivity {
         mFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 if(mPortionEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Enter some portion of food.",
                             Toast.LENGTH_SHORT).show();

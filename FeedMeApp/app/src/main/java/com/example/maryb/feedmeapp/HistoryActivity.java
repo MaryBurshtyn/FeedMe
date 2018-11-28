@@ -2,6 +2,7 @@ package com.example.maryb.feedmeapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,11 @@ public class HistoryActivity extends AppCompatActivity {
     private Button mDayButton;
     private Button mWeekButton;
     private Button mMonthButton;
+    private Settings settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        settings = Settings.getInstance();
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         View v = getWindow().getDecorView();
@@ -41,24 +45,37 @@ public class HistoryActivity extends AppCompatActivity {
         mDayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showDayHistory();
             }
         });
         mWeekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showWeekHistory();
             }
         });
         mMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 showMonthHistory();
             }
         });
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(settings.getSoundSetting()){
+                    mp.start();
+                }
                 Intent nextActivity = new Intent(HistoryActivity.this, FeedActivity.class);
                 startActivity(nextActivity);
             }

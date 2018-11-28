@@ -3,6 +3,7 @@ package com.example.maryb.feedmeapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class signUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.click);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         View v = getWindow().getDecorView();
@@ -36,6 +38,7 @@ public class signUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                mp.start();
                 username = mEditTextName.getText().toString();
                 password = mEditTextPassword.getText().toString();
                 if(username.equals("Mary") && password.equals("qwerty")){
