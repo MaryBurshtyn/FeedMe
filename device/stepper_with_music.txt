@@ -11,8 +11,10 @@
 #define motorPin3  0 
 #define motorPin4  2 
 #define musicPin   4 
-const char *ssid =  "vadim_new";   
-const char *pass =  "19216811admin";  
+//const char *ssid =  "vadim_new";   
+//const char *pass =  "19216811admin";  
+const char *ssid =  "Redmi1";   
+const char *pass =  "yyyyyyyy";  
 const char *mqtt_server = "m21.cloudmqtt.com";
 const int mqtt_port = 12998;
 const char *mqtt_user = "ncybappt";
@@ -73,7 +75,7 @@ void loop()
   int portion = control.toInt();
   if(portion > 0){ 
     if(!musicPlayed){
-      for(int i = 0; i< 32; i++){
+      for(int i = 0; i< 4; i++){
         tone(musicPin,MELODY[i],250);
         delay(250);
         noTone(musicPin);
@@ -81,9 +83,9 @@ void loop()
       musicPlayed = true;
     }
    if(stepper.currentPosition() == curPos){
-    stepper.moveTo(2800);
+    stepper.moveTo(-2734);
     if (stepper.distanceToGo() == 0){
-      stepper.moveTo(2800);//5847
+      stepper.moveTo(-2734);//5847
     }
    }
    if (stepper.distanceToGo() == 0) 
@@ -92,7 +94,7 @@ void loop()
     control = String(portion);
     stepper.setCurrentPosition(0);
    } 
-   stepper.setSpeed(900);
+   stepper.setSpeed(-900);
    stepper.runSpeedToPosition(); 
     }
   else if(portion == 0){
